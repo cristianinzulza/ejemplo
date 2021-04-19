@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Actividad 10</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<style>
+
+    body {
+        background-color: lightgray;
+        min-width: 200px;
+    }
+
+    fieldset {
+            padding: 0px 10px;
+        }
+
+    legend {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    @media (min-width: 576px) {
+        fieldset {
+            padding: 0px 20px;
+        }
+
+        legend {
+            font-size: 1.5em;
+            text-align: left;
+        }
+    }
+
+    @media (min-width: 768px) {
+        fieldset {
+            padding: 0px 25px;
+        }
+    }
+
+</style>
+
+<body onload="convertirUp2Down()">
+
+    <nav class="navbar shadow">
+        <!--Logo y nombre tienda-->
+        <a href="index.html" class="navbar-brand d-flex justify-content-center align-items-center w-100">
+          <img src="moneda.png" class="rounded mx-3 d-none d-sm-block" width="120" height="120">
+          <div class="d-flex flex-column align-items-center">
+              <h1 id="titulo" class="text-wrap text-center">Billete Seguro</h1>
+              <small class="d-block">Casa de Cambio</small>
+          </div>
+        </a>
+      </nav>
+
+    <main class="container mt-5 p-0 d-flex justify-content-center">
+            <!--Conversor de Divisas-->
+            <fieldset class="border-lg shadow pb-4">
+                <!--Título-->
+                <legend class="text-dark pt-1 pb-2">Conversor de divisas</legend>
+                <!--Controles-->
+                <div class="form-row flex-column align-items-center">
+                    <!--UP-->
+                    <div class="d-flex mb-2">
+                        <!--Selecctor divisa-->
+                        <select id="divisaUp" class="form-control d-inline-block w-auto mr-1" onchange="divisaUpChanged()">
+                            <option selected value="usd">USD</option>
+                            <option value="eur">EUR</option>
+                            <option value="uf">UF</option>
+                            <option value="clp">CLP</option>
+                        </select>
+                        <!--Valor divisa-->
+                        <div class="input-group d-inline-block w-auto">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">$</div>
+                                <input type="text" id="valorUp" class="form-control text-right" value="1" onkeyup="convertirUp2Down()">
+                            </div>
+                            <div id="errorUp" class="text-right text-danger"></div>
+                        </div>
+                    </div>
+                    <!--DOWN-->
+                    <div class="d-flex">
+                        <!--Selecctor divisa-->
+                        <select id="divisaDown" class="form-control d-inline-block w-auto mr-1" onchange="divisaDownChanged()">
+                            <option value="usd">USD</option>
+                            <option value="eur">EUR</option>
+                            <option value="uf">UF</option>
+                            <option selected value="clp">CLP</option>
+                        </select>
+                        <!--Valor divisa-->
+                        <div class="input-group d-inline-block">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">$</div>
+                                <input type="text" id="valorDown" class="form-control text-right" onkeyup="convertirDown2Up()">
+                            </div>
+                            <div id="errorDown" class="text-right text-danger"></div>
+                        </div>               
+                    </div>
+                </div>
+            </fieldset>
+
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+
+        var errorMsg = "Ingrese solo números";
+
+        var tasa = {
+            usd: 704,
+            eur: 856,
+            uf: 28678.52,
+            clp: 1
+        };
+
+        
+        function convertirUp2Down() {
+            if (validarInput(valorUp))
+                valorDown.value = valorUp.value * tasa[divisaUp.value] / tasa[divisaDown.value];
+            else 
+                errorUp.innerHTML = errorMsg;
+        }
+
+        function convertirDown2Up() {
+            if (validarInput(valorDown)) 
+                valorUp.value = valorDown.value * tasa[divisaDown.value] / tasa[divisaUp.value];
+            else
+                errorDown.innerHTML = errorMsg;
+        }
+
+        function validarInput(input) {
+            console.log(input.value);
+            let isOk = !isNaN(input.value);
+            if (isOk){
+                errorUp.innerHTML = "";
+                errorDown.innerHTML = "";
+            }
+            return isOk;
+        }
+        
+        //TODO: al cambiar divisa colocar un 1 en el input respectivo
+        function divisaUpChanged() {
+            valorUp.value = 1;
+            convertirUp2Down();
+        }
+
+        function divisaDownChanged() {
+            valorDown.value = 1;
+            convertirDown2Up();
+        }
+
+    </script>
+    
+</body>
+
+</html>

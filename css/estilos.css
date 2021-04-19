@@ -1,0 +1,28 @@
+
+
+#calculadora {
+    font-family: "Lucida Console", Courier, monospace;
+    width: 290px;
+}
+
+#salida {
+    font-size: 2em;
+    overflow: auto;
+}
+
+#operador {
+    height: 32px;
+}
+
+button {
+    width: 60px;
+    height: 50px;
+}
+
+.form-inline:last-child > button:first-child{
+    font-size: 0.8em;
+}
+
+.form-inline > button:not(:first-child) {
+    margin-left: 5px;
+}

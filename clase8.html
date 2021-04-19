@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function mostrarFecha() {
+            document.getElementById("fecha").innerHTML = Date();
+        }
+    </script>
+    <script>
+        function pasarMayuscula() {
+            var letra = document.getElementById("nombre");
+            letra.value = letra.value.toUpperCase();
+        }
+    </script>
+
+    <script>
+        function mouseEncima(obj) {
+            obj.innerHTML = "El mouse está encima"
+            obj.style.backgroundColor = "yellow"
+        }
+        function mouseFuera() {
+            obj.innerHTML = "El mouse se va a colocar encima"
+            obj.style.backgroundColor = "coral"
+        }
+    </script>
+
+    <script>
+        function apretarMouse(obj) {
+            obj.style.backgroundColor = "skyblue";
+            obj.innerHTML = "El color es celeste";
+        }
+        function soltarMouse(obj) {
+            obj.style.backgroundColor = "green";
+            obj.innerHTML = "El color es verde";
+        }
+    </script>
+
+    <script>
+        function ventana1(){
+            alert("Esta es la ventana 1");
+        }
+
+        function ventana2(){
+            var texto;
+            if(confirm("Presione un botón")){
+                texto="Se ha presionado el botón Aceptar";
+            }
+            else{
+                texto="Se ha presionado el botón Cancelar";
+            }
+            document.getElementById("confirma").innerHTML=texto;
+        }
+
+        function ventana3(){
+            var texto;
+            var nombre = prompt("Ingrese su nombre");
+            if(nombre == null || nombre ==""){
+                texto = "Usted no ha ingresado el nombre";
+            }
+            else{
+                texto = "Usted ha ingresado el nombre";
+            }
+            document.getElementById("texto").innerHTML=texto;
+        }
+
+    </script>
+
+    <style>
+        #fijo {
+            width: 600px;
+            height: 600px;
+            position: relative;
+            background-color: darkorange;
+        }
+        #movimiento {
+            width: 70px;
+            height: 70px;
+            position: absolute;
+            background-color: rgb(216, 253, 5);
+        }
+    </style>
+
+    <script>
+        function mover(){
+            var elemento = document.getElementById("movimiento");
+            var posicion = 0;
+            var intervalo = setInterval(frame, 10);
+            function frame(){
+                if(posicion==530)
+                {
+                    clearInterval(intervalo);
+                }
+                else{
+                    posicion++;
+                    elemento.style.top = posicion + "px";
+                    elemento.style.left = posicion + "px";
+                }
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1 onclick="this.innerHTML='Buenas Dias'">Buenas Tardes</h1>
+    <br>
+    <button onclick="mostrarFecha()">Mostrar Fecha</button>
+    <br>
+    <p id="fecha"></p>
+    <br>
+    <!-- Agregando un textinput que cambiará las letras de minúsculas a mayusculas -->
+    Ingrese su nombre: <input type="text" id="nombre" onchange="pasarMayuscula()">
+    <br>
+    <!-- Pasar el mouse por encima de un sector de la página-->
+    <div onmouseover="mouseEncima(this)" onmouseout="mouseFuera(this)" style="background-color:coral" ; width:200px;
+        height:50px; border:2px; padding:20px;">
+        El mouse se a colocar encima
+    </div>
+    <br>
+    <div onmousedown="apretarMouse(this)" onmouseup="soltarMouse(this)" style="background-color:darkorange;" width:
+        200px; height:50px; border:2px; padding:20px;">
+        El mouse va a hacer click
+    </div>
+    </div>
+
+    <!-- Agregando algunas ventanas emergentes -->
+    <br>
+    <button onclick="ventana1()">Mostrar ventana 1</button>
+    <br>
+    <button onclick="ventana2()">Mostrar ventana 2</button>
+    <br>
+    <p id="confirma"></p>
+    <br>
+    <button on   onclick="ventana3()">Mostrar ventana 3</button>
+    <br>
+    <p id="texto"></p>
+    <br>
+    <br>
+
+    <button onclick="mover()">Mover</button>
+    <div id="fijo">
+        <div id="movimiento"></div>
+    </div>
+
+</body>
+
+</html>

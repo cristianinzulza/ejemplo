@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart(){
+            var chart = new google.visualization.ChartWrapper({
+                containerId:'chart'
+            });
+
+            var data = google.visualization.arrayToDataTable([
+                ['Tareas','Horas del día'],
+                ['Trabajar', 9],
+                ['Comer', 2],
+                ['Ver televisión', 1],
+                ['Video Juegos', 1],
+                ['Dormir', 8]
+            ]);
+
+            var options = {
+                title: 'Mis actividades diarias'
+            };
+
+            chart.setDataTable(data);
+            chart.setOptions(options);
+            chart.setChartType('PieChart');
+            chart.draw();
+
+            charType = document.getElementById("charType");
+            charType.onchange = update;
+
+            function update(){
+                chart.setChartType(this.value);
+                chart.draw();
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+    <select id="charType">
+        <option value='PieChart'>Circular</option>
+        <option value='BarChart'>Barras</option>
+        <option value='LineChart'>Líneas</option>
+    </select>
+
+    <div id="chart" style="width:900px; height:500px;" ></div>
+</body>
+</html>

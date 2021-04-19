@@ -1,0 +1,142 @@
+
+<html>
+    <head>
+        <title>Validación de formulario</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <script>
+            // Definiendo un arreglo
+            var arreglo = new Array();
+            arreglo[0]="errorNombre";
+            arreglo[1]="errorApellido";
+            arreglo[2]="errorEmail";
+            arreglo[3]="errorUser";
+            arreglo[4]="errorPassword";
+            arreglo[5]="errorConfirmar";
+            
+            // Definiendo la funcion validar
+            function validar()
+            {
+                //capturar los valores ingresados en los campos
+                var entrada = new Array();
+                entrada[0] = document.getElementById('nombre').value;
+                entrada[1] = document.getElementById('apellido').value;
+                entrada[2] = document.getElementById('email').value;
+                entrada[3] = document.getElementById('user').value;
+                entrada[4] = document.getElementById('password').value;
+                entrada[5] = document.getElementById('confirmarpassword').value;
+                
+                var error = new Array();
+                error[0] ="<span style='color:red'>Ingrese el nombre!!</span>";
+                error[1] ="<span style='color:red'>Ingrese el apellido!!</span>";
+                error[2] ="<span style='color:red'>Ingrese el email!!</span>";
+                error[3] ="<span style='color:red'>Ingrese el usuario!!</span>";
+                error[4] ="<span style='color:red'>Ingrese el password!!</span>";
+                error[5] ="<span style='color:red'>Confirme el password!!</span>";
+                
+                for(i in entrada)
+                {
+                    var mensajeError = error[i];
+                    var valorArreglo = arreglo[i];
+                    
+                    if(entrada[i]=="")
+                        document.getElementById(valorArreglo).innerHTML = mensajeError;
+                    
+                    // Validación del correo
+                    else if(i==2)
+                    {
+                        //Devuelve la posición donde está el @
+                        var arroba = entrada[i].indexOf("@");
+                        var punto = entrada[i].lastIndexOf(".");
+                        if(arroba<1 || punto<arroba+2 || punto+2>entrada[i].length)
+                        {
+                            document.getElementById('errorEmail').innerHTML = "<span style='color:red'>Ingrese una dirección de correo válida!!</span>";
+                        }
+                        else
+                        {
+                            document.getElementById(valorArreglo).innerHTML = "Campo validado!!"
+                        }
+    
+                    }
+                    else if(i==5)
+                    {
+                        var primero = document.getElementById('password').value;
+                        var segundo = document.getElementById('confirmarpassword').value;
+                        
+                        if(segundo != primero)
+                        {
+                            document.getElementById('errorConfirmar').innerHTML = "<span style='color:red'>El password no coincide, ingrese nuevamente el password!!</span>";
+                        }
+                        else
+                        {
+                             document.getElementById(valorArreglo).innerHTML = "Campo validado!!";
+                        }
+                    }
+                    else
+                        document.getElementById(valorArreglo).innerHTML = "Campo validado!!";          
+                }   
+            }
+            
+            function validarTodos()
+            {
+                var contador = 0;
+                for(i=0; i<6; i++)
+                {
+                    var valorArreglo = arreglo[i];
+                    if(document.getElementById(valorArreglo).innerHTML =="Campo validado!!")
+                    {
+                        contador++;
+                    }
+                }
+                if(contador==6){
+                    document.getElementById("mensajefinal").innerHTML = "El formulario está correctamente validado";
+                }
+            }
+            
+            
+        </script>
+    </head>
+    <body>
+    <center>
+        <h2>Formulario Javascript</h2>
+        <table>
+            <tr>
+                <td>Nombre: </td>
+                <td><input type="text" id="nombre" onkeyup="validar()"/></td>
+                <td><div id="errorNombre"></div></td>
+            </tr>
+            <tr>
+                <td>Apellido:</td>
+                <td><input type="text" id="apellido" onkeyup="validar()"/></td>
+                <td><div id="errorApellido"></div></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="text" id="email" onkeyup="validar()"/></td>
+                <td><div id="errorEmail"></div></td>
+            </tr>
+            <tr>
+                <td>Usuario:</td>
+                <td><input type="text" id="user" onkeyup="validar()"/></td>
+                <td><div id="errorUser"></div></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" id="password" onkeyup="validar()"/></td>
+                <td><div id="errorPassword"></div></td>
+            </tr>
+            <tr>
+                <td>Confirmar password:</td>
+                <td><input type="password" id="confirmarpassword" onkeyup="validar()"/></td>
+                <td><div id="errorConfirmar"></div></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="button" id="botonvalidar" value="Valida" onclick="validar(); validarTodos();"/></td>
+                <td><div id="mensajefinal"></div></td>
+            </tr>
+        </table>
+    </center>
+    </body>
+</html>
